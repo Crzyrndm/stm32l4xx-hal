@@ -3,19 +3,34 @@ mod private {
     pub trait Sealed {}
 }
 
+/// MCO output
+pub trait McoPin: private::Sealed {}
+/// Jtag test mode select or SWD IO Pin
+pub trait SwdioPin: private::Sealed {}
+/// JTAG or SWD clock pin
+pub trait SwclkPin: private::Sealed {}
+/// JTAG test data in pin
+pub trait JtdiPin: private::Sealed {}
+/// JTAG test data out pin
+pub trait JtdoPin: private::Sealed {}
+/// JTAG test reset pin
+pub trait NjrstPin: private::Sealed {}
+
 /// I2C SCL pin. This trait is sealed and cannot be implemented.
 pub trait SclPin<I2C>: private::Sealed {}
 /// I2C SDA pin. This trait is sealed and cannot be implemented.
 pub trait SdaPin<I2C>: private::Sealed {}
 
 /// USART Marks pins as being as being TX pins for the given USART instance
-pub trait TxPin<Instance>: private::Sealed {}
+pub trait TxPin<UART>: private::Sealed {}
 /// USART Marks pins as being as being RX pins for the given USART instance
-pub trait RxPin<Instance>: private::Sealed {}
+pub trait RxPin<UART>: private::Sealed {}
 /// USART Marks pins as being as being RTS pins for the given USART instance
-pub trait RtsDePin<Instance>: private::Sealed {}
+pub trait RtsDePin<UART>: private::Sealed {}
 /// USART Marks pins as being as being CTS pins for the given USART instance
-pub trait CtsPin<Instance>: private::Sealed {}
+pub trait CtsPin<UART>: private::Sealed {}
+/// USART Marks pins as being as being CK pins for the given USART instance
+pub trait SyncClk<UART>: private::Sealed {}
 
 /// PWM Marks a pin that can be used as pwm channel 1 for a given timer
 pub trait PwmCh1<TIM>: private::Sealed {}
@@ -25,6 +40,22 @@ pub trait PwmCh2<TIM>: private::Sealed {}
 pub trait PwmCh3<TIM>: private::Sealed {}
 /// PWM Marks a pin that can be used as pwm channel 4 for a given timer
 pub trait PwmCh4<TIM>: private::Sealed {}
+/// PWM Marks a pin that can be used as pwm channel 4 for a given timer
+pub trait PwmCh1N<TIM>: private::Sealed {}
+pub trait PwmCh2N<TIM>: private::Sealed {}
+
+// other timer output functions
+
+/// External trigger input
+pub trait ExtTriggerIn<TIM>: private::Sealed {}
+/// Break input
+pub trait BreakIn<TIM>: private::Sealed {}
+/// Break input 2
+pub trait BreakIn2<TIM>: private::Sealed {}
+/// IR encoded output
+pub trait IrOut: private::Sealed {}
+/// LP Timer output
+pub trait LpTimOut<LPTIM>: private::Sealed {}
 
 /// SPI SCK pin. This trait is sealed and cannot be implemented.
 pub trait SckPin<SPI>: private::Sealed {}
@@ -32,6 +63,8 @@ pub trait SckPin<SPI>: private::Sealed {}
 pub trait MisoPin<SPI>: private::Sealed {}
 /// SPI MOSI pin. This trait is sealed and cannot be implemented.
 pub trait MosiPin<SPI>: private::Sealed {}
+/// SPI NSS pin. This trait is sealed and cannot be implemented.
+pub trait NssPin<SPI>: private::Sealed {}
 
 /// QSPI Marks a pin that can be used as clock for QSPI
 pub trait ClkPin<QSPI>: private::Sealed {}
@@ -53,6 +86,9 @@ pub trait TscPin<const GROUP: usize, const IO: usize>: private::Sealed {}
 pub trait CanTxPin<CAN>: private::Sealed {}
 /// CAN Marks a pin that can be used as a can rx pin
 pub trait CanRxPin<CAN>: private::Sealed {}
+
+/// USB start of frame signal input
+pub trait UsbSofPin: private::Sealed {}
 
 // use gpio::Alternate, AF0..15, PA0..15, PB...
 use super::gpio::*;
