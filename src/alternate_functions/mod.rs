@@ -326,6 +326,9 @@ macro_rules! af_table_af8af15 {
 #[cfg(feature = "stm32l452")]
 mod stm32l452;
 
+#[cfg(feature = "stm32l476")]
+mod stm32l476;
+
 // Fallback feature gates
 #[cfg(feature = "stm32l4x1")]
 mod stm32l4x1;
