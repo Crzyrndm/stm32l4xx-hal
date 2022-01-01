@@ -1,4 +1,4 @@
-use stm32l4::stm32l4x6::TIM16;
+use stm32l4::stm32l4x6::{LPTIM1, TIM16, TIM17, TIM8};
 
 use super::*;
 
@@ -19,42 +19,107 @@ use super::*;
 // AF14 == TIM2 / TIM15 / TIM16 / TIM17 / LPTIM2
 // AF15 == EVENTOUT
 
-af_table_af0af7! {
-//      AF0      AF1            AF2             AF3          AF4           AF5        AF6          AF7
-[ PA0  | _ |PwmCh1<TIM2>  |PwmCh1<TIM5>   |_/*TIM8_ETR*/|     _      |      _      |   _    |  CtsPin<USART2>]
-[ PA1  | _ |PwmCh2<TIM2>  |PwmCh2<TIM5>   |      _      |     _      |      _      |   _    |RtsDePin<USART2>]
-[ PA2  | _ |PwmCh3<TIM2>  |PwmCh3<TIM5>   |      _      |     _      |      _      |   _    |  TxPin<USART2> ]
-[ PA3  | _ |PwmCh4<TIM2>  |PwmCh4<TIM5>   |      _      |     _      |      _      |   _    |  RxPin<USART2> ]
-[ PA4  | _ |     _        |      _        |      _      |     _      |_/*SPI1_NSS*/|_/*SPI3_NSS*/|_/*USART2_CK*/]
-[ PA5  | _ |PwmCh1<TIM2>  |_/*TIM2_ETR*/  |_/*TIM8_CH1N*/|     _      |SckPin<SPI1> |   _    |       _        ]
-[ PA6  | _ |_/*TIM1_BKIN*/|PwmCh1<TIM3>   |_/*TIM8_BKIN*/|     _      |MisoPin<SPI1>|   _    |  CtsPin<USART3>]
-[ PA7  | _ |_/*TIM1_CH1N*/|PwmCh2<TIM3>   |_/*TIM8_CH1N*/|     _      |MosiPin<SPI1>|   _    |       _        ]
-[ PA8  |_/*MCO*/ |PwmCh1<TIM1>  |      _        |      _      |     _      |      _      |   _    |_/*USART2_CK*/]
-[ PA9  | _ |PwmCh2<TIM1>  |      _        |      _      |     _      |      _      |   _    |  TxPin<USART1> ]
-[ PA10 | _ |PwmCh3<TIM1>  |      _        |      _      |     _      |      _      |   _    |  RxPin<USART1> ]
-[ PA11 | _ |PwmCh4<TIM1>  |_/*TIM1_BKIN2*/|      _      |     _      |_|   _    |CtsPin<USART1>]
-[ PA12 | _ |_/*TIM1_ETR*/ |      _        |      _      |     _      |_|   _    |RtsDePin<USART1>]
-[ PA13 |_/*JTMS-SWDIO*/| _ /*IR_OUT*/ |      _        |      _      |     _      |      _      |   _    |       _        ]
-[ PA14 |_/*JTMS-SWCLK*/|     _        |      _        |      _      |     _      |      _      |   _    |       _        ]
-[ PA15 |_/*JTDI*/|PwmCh1<TIM2>  |_/*TIM2_ETR*/  |RxPin<USART2>|     _      |_/*SPI1_NSS*/|_/*SPI3_NSS*/|RtsDePin<USART3>]
+macro_rules! idx_from_AFx {
+    (AF0) => {
+        0
+    };
+    (AF1) => {
+        1
+    };
+    (AF2) => {
+        2
+    };
+    (AF3) => {
+        3
+    };
+    (AF4) => {
+        4
+    };
+    (AF5) => {
+        5
+    };
+    (AF6) => {
+        6
+    };
+    (AF7) => {
+        7
+    };
+    (AF8) => {
+        8
+    };
+    (AF9) => {
+        9
+    };
+    (AF10) => {
+        10
+    };
+    (AF11) => {
+        11
+    };
+    (AF12) => {
+        12
+    };
+    (AF13) => {
+        13
+    };
+    (AF14) => {
+        14
+    };
+    (AF15) => {{
+        15
+    }};
 }
 
-af_table_af8af15! {
-//      AF8             AF9             AF10            AF11              AF12                   AF13                   AF14
-[ PA0  |TxPin<UART4>   |       _       |       _       | _               | _                    | _/*SAI1_EXTCLK*/      | _/*TIM2_ETR */ | _ ]
-[ PA1  |RxPin<UART4>   |       _       |       _       | _/* LCD_SEG0 */ | _                    | _                     | _/*TIM15_CH1N */ | _ ]
-[ PA2  | _             |       _       |_              | _/* LCD_SEG1 */ | _                    | _/*SAI2_EXTCLK */     | PwmCh1<TIM15> | _ ]
-[ PA3  | _             |       _       |_              | _/* LCD_SEG2 */ | _                    | _                     | PwmCh2<TIM15> | _ ]
-[ PA4  | _             |       _       |       _       | _               | _                    | _/*SAI1_FS_B */       | _/*LPTIM2_OUT */ | _ ]
-[ PA5  | _             |       _       |       _       | _               | _                    | _                     | _/*LPTIM2_ETR */ | _ ]
-[ PA6  | _             |       _       |IO3Pin<QUADSPI>| _/* LCD_SEG3 */ | _/*TIM1_BKIN_COMP2 */| _/*TIM8_BKIN_COMP2 */ | _/*TIM16_ETR */ | _ ]
-[ PA7  | _             |       _       |IO2Pin<QUADSPI>| _/* LCD_SEG4 */ | _                    | _                     | PwmCh1<TIM16>/*TIM16_CH1 */ | _ ]
-[ PA8  | _             |       _       |_/*OTG_FS_SOF*/| _/* LCD_COM0 */ | _                    | _                     | PwmCh1<TIM17>/*TIM17_CH1 */ | _ ]
-[ PA9  | _             |       _       |       _       | _/* LCD_COM1 */ | _                    | _                     | _/*TIM15_BKIN */ | _ ]
-[ PA10 | _             |       _       |_/*OTG_FS_ID*/ | _/* LCD_COM2 */ | _                    | _                     | _/*TIM17_BKIN */ | _ ]
-[ PA11 | _             |CanRxPin<CAN1> |_/*OTG_FS_DM*/ | _               | _/*TIM1_BKIN2_COMP1*/| _                     | _ | _ ]
-[ PA12 | _             |CanTxPin<CAN1> |_/*OTG_FS_DP*/ | _               | _                    | _                     | _ | _ ]
-[ PA13 | _             |       _       |_/*OTG_FS_NOE*/| _               | _                    | _                     | _ | _ ]
-[ PA14 | _             |       _       |       _       | _               | _                    | _                     | _ | _ ]
-[ PA15 |RtsDePin<UART4>|_/*TSC_G3_IO1*/|       _       | _/* LCD_SEG17*/ | _                    | _/*SAI2_FS_B */       | _ | _ ]
+macro_rules! map_af {
+    ($(($af:ident = [ $(($pin:ident, $trait:ty),)+]),)*) => {
+        $(
+            $(
+                impl<OTYPE> private::Sealed for $pin<Alternate<OTYPE, { idx_from_AFx!($af) }>> {}
+                impl<OTYPE> $trait for $pin<Alternate<OTYPE, { idx_from_AFx!($af) }>> {}
+            )*
+        )*
+    };
+    // peripheral focused version
+    ($peri:ty = [ $(($af:ident = [ $(($pin:ident, $trait:ident),)+]),)*]) => {
+        $(
+            $(
+                impl<OTYPE> private::Sealed for $pin<Alternate<OTYPE, { idx_from_AFx!($af) }>> {}
+                impl<OTYPE> $trait< $peri > for $pin<Alternate<OTYPE, { idx_from_AFx!($af) }>> {}
+            )*
+        )*
+    };
 }
+
+// all ofAF0
+map_af![
+    (AF0 = [
+        (PA8, McoPin),
+        (PA13, SwdioPin),
+        (PA14, SwclkPin),
+        (PA15, JtdiPin),
+        (PB3, JtdoPin),
+        (PB4, NjrstPin),
+        // ...
+    ]),
+];
+
+// all of TIM1
+map_af![
+    TIM1 = [
+        (AF1 = [
+            (PA6, BreakIn),
+            (PA7, PwmCh1N),
+            (PA8, PwmCh1),
+            (PA9, PwmCh2),
+            (PA10, PwmCh3),
+            (PA11, PwmCh4),
+            (PA12, ExtTriggerIn),
+            (PB0, PwmCh2N),
+            // ...
+        ]),
+        (AF2 = [
+            (PA11, BreakIn),
+            // ...
+        ]),
+    ]
+];
