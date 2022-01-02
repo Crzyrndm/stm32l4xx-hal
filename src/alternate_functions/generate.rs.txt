@@ -1,0 +1,149 @@
+use std::{collections::HashMap, io::Write, path::Path};
+
+use serde::{Deserialize, Serialize};
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+struct Pin {
+    pin: String,
+    signal: String,
+    af: Option<i32>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+struct Peripheral {
+    pins: Option<Vec<Pin>>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+struct Core {
+    name: String,
+    peripherals: HashMap<String, Peripheral>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+struct McuDescription {
+    name: String,
+    cores: Vec<Core>,
+}
+
+const FAMILY: &str = "STM32L4";
+
+fn main() {
+    let directory = "stm32-data/data/chips";
+
+    let mut desc_map = HashMap::new();
+    for file in std::fs::read_dir(directory).unwrap().filter_map(Result::ok) {
+        let file_name = file.file_name();
+        let name = file_name.to_str().unwrap();
+        if !name.starts_with(FAMILY) {
+            continue;
+        }
+        // the next two digits will have the mcu id without the variant info (pin count, FLASH/RAM size)
+        let name = &name[..(FAMILY.len() + 2)];
+        let description: McuDescription = parse_input_file(file.path());
+        if let Some(existing) = desc_map.get_mut(name) {
+            merge_description(existing, &description);
+        } else {
+            desc_map.insert(name.to_string(), description);
+        }
+    }
+    write_outputs(&desc_map);
+}
+
+fn parse_input_file(path: impl AsRef<Path>) -> McuDescription {
+    let rdr = std::fs::File::open(path).unwrap();
+    serde_yaml::from_reader(rdr).unwrap()
+}
+
+/// add any new fields to the original
+fn merge_description(merge_into: &mut McuDescription, adding_from: &McuDescription) {
+    // assert base states are equivalent
+    assert!(merge_into
+        .name
+        .starts_with(&adding_from.name[..FAMILY.len() + 2]));
+    assert!(merge_into.cores.iter().all(|c| adding_from
+        .cores
+        .iter()
+        .map(|c| c.name.as_str())
+        .any(|c2| c.name == c2)));
+    // iterate peripherals, then pins. Add peripheral/pin when discrepancy found
+    for (merge, adding) in merge_into.cores.iter_mut().zip(adding_from.cores.iter()) {
+        for (name, data) in &adding.peripherals {
+            if merge.peripherals.contains_key(name) && data.pins.is_some() {
+                let merge_pins = &mut merge.peripherals.get_mut(name).unwrap().pins;
+                if let None = merge_pins {
+                    merge_pins.replace(vec![]);
+                }
+                let merge_pins = merge_pins.as_mut().unwrap();
+
+                for add_pin in data.pins.as_ref().unwrap() {
+                    if !merge_pins.contains(add_pin) {
+                        merge_pins.push(add_pin.clone());
+                    }
+                }
+            } else {
+                merge.peripherals.insert(name.clone(), data.clone());
+            }
+        }
+    }
+}
+
+fn write_outputs(descriptions: &HashMap<String, McuDescription>) {
+    std::fs::create_dir("out").ok();
+    for (name, description) in descriptions {
+        let out_file = std::fs::File::create(format!("out/{}.rs", name.to_lowercase())).unwrap();
+        let mut out_file = std::io::BufWriter::new(out_file);
+        // module description
+        writeln!(&mut out_file, "//! This file is generated based on data from https://github.com/embassy-rs/stm32-data/tree/58c7078381d1ddc347647793b884043418ab2e72/data/chips").unwrap();
+        writeln!(&mut out_file).unwrap();
+        let mut cores: Vec<Core> = description.cores.iter().cloned().collect();
+        cores.sort_by(|c1, c2| c1.name.cmp(&c2.name));
+        for core in cores {
+            let mut peripherals: Vec<(String, Peripheral)> = core
+                .peripherals
+                .iter()
+                .map(|p| (p.0.clone(), p.1.clone()))
+                .collect();
+            peripherals.sort_by(|p1, p2| p1.0.cmp(&p2.0));
+
+            for peripheral in peripherals {
+                // peripheral description
+                writeln!(&mut out_file, "// {}", peripheral.0).unwrap();
+                writeln!(&mut out_file).unwrap();
+                if peripheral.1.pins.is_none() {
+                    continue;
+                }
+                let mut pins: Vec<Pin> = peripheral.1.pins.unwrap();
+                pins.sort_by(|p1, p2| p1.pin.cmp(&p2.pin));
+                for pin in pins {
+                    if pin.af.is_some() {
+                        writeln!(
+                            &mut out_file,
+                            "impl<OTYPE> super::private::Sealed for crate::gpio::{}<Alternate<OTYPE, {}>> {{}}",
+                            pin.pin,
+                            pin.af.unwrap()
+                        )
+                        .unwrap();
+                        writeln!(
+                            &mut out_file,
+                            "impl<OTYPE> super::{}<crate::pac::{}> for crate::gpio::{}<Alternate<OTYPE, {}>> {{}}",
+                            trait_map(&peripheral.0, &pin.signal),
+                            peripheral.0,
+                            pin.pin,
+                            pin.af.unwrap()
+                        )
+                        .unwrap();
+                        writeln!(&mut out_file).unwrap();
+                    }
+                }
+            }
+        }
+    }
+}
+
+fn trait_map(mut periph: &str, signal: &str) -> String {
+    while !periph.is_empty() && periph.chars().last().unwrap().is_numeric() {
+        periph = &periph[..(periph.len() - 1)];
+    }
+    format!("{}_{}", periph, signal)
+}

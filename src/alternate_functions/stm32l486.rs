@@ -8,6 +8,8 @@
 
 // ADC_COMMON
 
+// AES
+
 // CAN1
 
 impl<OTYPE> super::private::Sealed for crate::gpio::PA11<Alternate<OTYPE, 9>> {}

@@ -12,18 +12,6 @@ impl<OTYPE> super::CAN_RX<crate::pac::CAN1> for crate::gpio::PA11<Alternate<OTYP
 impl<OTYPE> super::private::Sealed for crate::gpio::PA12<Alternate<OTYPE, 9>> {}
 impl<OTYPE> super::CAN_TX<crate::pac::CAN1> for crate::gpio::PA12<Alternate<OTYPE, 9>> {}
 
-impl<OTYPE> super::private::Sealed for crate::gpio::PB12<Alternate<OTYPE, 10>> {}
-impl<OTYPE> super::CAN_RX<crate::pac::CAN1> for crate::gpio::PB12<Alternate<OTYPE, 10>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PB13<Alternate<OTYPE, 10>> {}
-impl<OTYPE> super::CAN_TX<crate::pac::CAN1> for crate::gpio::PB13<Alternate<OTYPE, 10>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PB5<Alternate<OTYPE, 3>> {}
-impl<OTYPE> super::CAN_RX<crate::pac::CAN1> for crate::gpio::PB5<Alternate<OTYPE, 3>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PB6<Alternate<OTYPE, 8>> {}
-impl<OTYPE> super::CAN_TX<crate::pac::CAN1> for crate::gpio::PB6<Alternate<OTYPE, 8>> {}
-
 impl<OTYPE> super::private::Sealed for crate::gpio::PB8<Alternate<OTYPE, 9>> {}
 impl<OTYPE> super::CAN_RX<crate::pac::CAN1> for crate::gpio::PB8<Alternate<OTYPE, 9>> {}
 
@@ -71,83 +59,9 @@ impl<OTYPE> super::COMP_OUT<crate::pac::COMP2> for crate::gpio::PB5<Alternate<OT
 
 // CRS
 
-impl<OTYPE> super::private::Sealed for crate::gpio::PA10<Alternate<OTYPE, 10>> {}
-impl<OTYPE> super::CRS_SYNC<crate::pac::CRS> for crate::gpio::PA10<Alternate<OTYPE, 10>> {}
-
 // DAC1
 
 // DBGMCU
-
-// DFSDM1
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PA5<Alternate<OTYPE, 6>> {}
-impl<OTYPE> super::DFSDM_CKOUT<crate::pac::DFSDM1> for crate::gpio::PA5<Alternate<OTYPE, 6>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PA7<Alternate<OTYPE, 6>> {}
-impl<OTYPE> super::DFSDM_DATIN0<crate::pac::DFSDM1> for crate::gpio::PA7<Alternate<OTYPE, 6>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PA8<Alternate<OTYPE, 6>> {}
-impl<OTYPE> super::DFSDM_CKIN1<crate::pac::DFSDM1> for crate::gpio::PA8<Alternate<OTYPE, 6>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PA9<Alternate<OTYPE, 6>> {}
-impl<OTYPE> super::DFSDM_DATIN1<crate::pac::DFSDM1> for crate::gpio::PA9<Alternate<OTYPE, 6>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PB0<Alternate<OTYPE, 6>> {}
-impl<OTYPE> super::DFSDM_CKIN0<crate::pac::DFSDM1> for crate::gpio::PB0<Alternate<OTYPE, 6>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PB1<Alternate<OTYPE, 6>> {}
-impl<OTYPE> super::DFSDM_DATIN0<crate::pac::DFSDM1> for crate::gpio::PB1<Alternate<OTYPE, 6>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PB12<Alternate<OTYPE, 6>> {}
-impl<OTYPE> super::DFSDM_DATIN1<crate::pac::DFSDM1> for crate::gpio::PB12<Alternate<OTYPE, 6>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PB13<Alternate<OTYPE, 6>> {}
-impl<OTYPE> super::DFSDM_CKIN1<crate::pac::DFSDM1> for crate::gpio::PB13<Alternate<OTYPE, 6>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PB14<Alternate<OTYPE, 6>> {}
-impl<OTYPE> super::DFSDM_DATIN2<crate::pac::DFSDM1> for crate::gpio::PB14<Alternate<OTYPE, 6>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PB15<Alternate<OTYPE, 6>> {}
-impl<OTYPE> super::DFSDM_CKIN2<crate::pac::DFSDM1> for crate::gpio::PB15<Alternate<OTYPE, 6>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PB2<Alternate<OTYPE, 6>> {}
-impl<OTYPE> super::DFSDM_CKIN0<crate::pac::DFSDM1> for crate::gpio::PB2<Alternate<OTYPE, 6>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PC2<Alternate<OTYPE, 6>> {}
-impl<OTYPE> super::DFSDM_CKOUT<crate::pac::DFSDM1> for crate::gpio::PC2<Alternate<OTYPE, 6>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PC6<Alternate<OTYPE, 6>> {}
-impl<OTYPE> super::DFSDM_CKIN3<crate::pac::DFSDM1> for crate::gpio::PC6<Alternate<OTYPE, 6>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PC7<Alternate<OTYPE, 6>> {}
-impl<OTYPE> super::DFSDM_DATIN3<crate::pac::DFSDM1> for crate::gpio::PC7<Alternate<OTYPE, 6>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PD3<Alternate<OTYPE, 6>> {}
-impl<OTYPE> super::DFSDM_DATIN0<crate::pac::DFSDM1> for crate::gpio::PD3<Alternate<OTYPE, 6>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PD4<Alternate<OTYPE, 6>> {}
-impl<OTYPE> super::DFSDM_CKIN0<crate::pac::DFSDM1> for crate::gpio::PD4<Alternate<OTYPE, 6>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PD6<Alternate<OTYPE, 6>> {}
-impl<OTYPE> super::DFSDM_DATIN1<crate::pac::DFSDM1> for crate::gpio::PD6<Alternate<OTYPE, 6>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PD7<Alternate<OTYPE, 6>> {}
-impl<OTYPE> super::DFSDM_CKIN1<crate::pac::DFSDM1> for crate::gpio::PD7<Alternate<OTYPE, 6>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PE4<Alternate<OTYPE, 6>> {}
-impl<OTYPE> super::DFSDM_DATIN3<crate::pac::DFSDM1> for crate::gpio::PE4<Alternate<OTYPE, 6>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PE5<Alternate<OTYPE, 6>> {}
-impl<OTYPE> super::DFSDM_CKIN3<crate::pac::DFSDM1> for crate::gpio::PE5<Alternate<OTYPE, 6>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PE7<Alternate<OTYPE, 6>> {}
-impl<OTYPE> super::DFSDM_DATIN2<crate::pac::DFSDM1> for crate::gpio::PE7<Alternate<OTYPE, 6>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PE8<Alternate<OTYPE, 6>> {}
-impl<OTYPE> super::DFSDM_CKIN2<crate::pac::DFSDM1> for crate::gpio::PE8<Alternate<OTYPE, 6>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PE9<Alternate<OTYPE, 6>> {}
-impl<OTYPE> super::DFSDM_CKOUT<crate::pac::DFSDM1> for crate::gpio::PE9<Alternate<OTYPE, 6>> {}
 
 // DMA1
 
@@ -231,38 +145,6 @@ impl<OTYPE> super::I2C_SCL<crate::pac::I2C3> for crate::gpio::PC0<Alternate<OTYP
 
 impl<OTYPE> super::private::Sealed for crate::gpio::PC1<Alternate<OTYPE, 4>> {}
 impl<OTYPE> super::I2C_SDA<crate::pac::I2C3> for crate::gpio::PC1<Alternate<OTYPE, 4>> {}
-
-// I2C4
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PA14<Alternate<OTYPE, 5>> {}
-impl<OTYPE> super::I2C_SMBA<crate::pac::I2C4> for crate::gpio::PA14<Alternate<OTYPE, 5>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PB10<Alternate<OTYPE, 3>> {}
-impl<OTYPE> super::I2C_SCL<crate::pac::I2C4> for crate::gpio::PB10<Alternate<OTYPE, 3>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PB11<Alternate<OTYPE, 3>> {}
-impl<OTYPE> super::I2C_SDA<crate::pac::I2C4> for crate::gpio::PB11<Alternate<OTYPE, 3>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PB6<Alternate<OTYPE, 5>> {}
-impl<OTYPE> super::I2C_SCL<crate::pac::I2C4> for crate::gpio::PB6<Alternate<OTYPE, 5>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PB7<Alternate<OTYPE, 5>> {}
-impl<OTYPE> super::I2C_SDA<crate::pac::I2C4> for crate::gpio::PB7<Alternate<OTYPE, 5>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PC0<Alternate<OTYPE, 2>> {}
-impl<OTYPE> super::I2C_SCL<crate::pac::I2C4> for crate::gpio::PC0<Alternate<OTYPE, 2>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PC1<Alternate<OTYPE, 2>> {}
-impl<OTYPE> super::I2C_SDA<crate::pac::I2C4> for crate::gpio::PC1<Alternate<OTYPE, 2>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PD11<Alternate<OTYPE, 4>> {}
-impl<OTYPE> super::I2C_SMBA<crate::pac::I2C4> for crate::gpio::PD11<Alternate<OTYPE, 4>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PD12<Alternate<OTYPE, 4>> {}
-impl<OTYPE> super::I2C_SCL<crate::pac::I2C4> for crate::gpio::PD12<Alternate<OTYPE, 4>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PD13<Alternate<OTYPE, 4>> {}
-impl<OTYPE> super::I2C_SDA<crate::pac::I2C4> for crate::gpio::PD13<Alternate<OTYPE, 4>> {}
 
 // IWDG
 
@@ -684,6 +566,32 @@ impl<OTYPE> super::SPI_MISO<crate::pac::SPI3> for crate::gpio::PC11<Alternate<OT
 impl<OTYPE> super::private::Sealed for crate::gpio::PC12<Alternate<OTYPE, 6>> {}
 impl<OTYPE> super::SPI_MOSI<crate::pac::SPI3> for crate::gpio::PC12<Alternate<OTYPE, 6>> {}
 
+// SWPMI1
+
+impl<OTYPE> super::private::Sealed for crate::gpio::PA13<Alternate<OTYPE, 12>> {}
+impl<OTYPE> super::SWPMI_TX<crate::pac::SWPMI1> for crate::gpio::PA13<Alternate<OTYPE, 12>> {}
+
+impl<OTYPE> super::private::Sealed for crate::gpio::PA14<Alternate<OTYPE, 12>> {}
+impl<OTYPE> super::SWPMI_RX<crate::pac::SWPMI1> for crate::gpio::PA14<Alternate<OTYPE, 12>> {}
+
+impl<OTYPE> super::private::Sealed for crate::gpio::PA15<Alternate<OTYPE, 12>> {}
+impl<OTYPE> super::SWPMI_SUSPEND<crate::pac::SWPMI1> for crate::gpio::PA15<Alternate<OTYPE, 12>> {}
+
+impl<OTYPE> super::private::Sealed for crate::gpio::PA8<Alternate<OTYPE, 12>> {}
+impl<OTYPE> super::SWPMI_IO<crate::pac::SWPMI1> for crate::gpio::PA8<Alternate<OTYPE, 12>> {}
+
+impl<OTYPE> super::private::Sealed for crate::gpio::PB12<Alternate<OTYPE, 12>> {}
+impl<OTYPE> super::SWPMI_IO<crate::pac::SWPMI1> for crate::gpio::PB12<Alternate<OTYPE, 12>> {}
+
+impl<OTYPE> super::private::Sealed for crate::gpio::PB13<Alternate<OTYPE, 12>> {}
+impl<OTYPE> super::SWPMI_TX<crate::pac::SWPMI1> for crate::gpio::PB13<Alternate<OTYPE, 12>> {}
+
+impl<OTYPE> super::private::Sealed for crate::gpio::PB14<Alternate<OTYPE, 12>> {}
+impl<OTYPE> super::SWPMI_RX<crate::pac::SWPMI1> for crate::gpio::PB14<Alternate<OTYPE, 12>> {}
+
+impl<OTYPE> super::private::Sealed for crate::gpio::PB15<Alternate<OTYPE, 12>> {}
+impl<OTYPE> super::SWPMI_SUSPEND<crate::pac::SWPMI1> for crate::gpio::PB15<Alternate<OTYPE, 12>> {}
+
 // SYSCFG
 
 // TIM1
@@ -856,57 +764,9 @@ impl<OTYPE> super::TIM_CH4<crate::pac::TIM2> for crate::gpio::PB11<Alternate<OTY
 impl<OTYPE> super::private::Sealed for crate::gpio::PB3<Alternate<OTYPE, 1>> {}
 impl<OTYPE> super::TIM_CH2<crate::pac::TIM2> for crate::gpio::PB3<Alternate<OTYPE, 1>> {}
 
-// TIM3
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PA6<Alternate<OTYPE, 2>> {}
-impl<OTYPE> super::TIM_CH1<crate::pac::TIM3> for crate::gpio::PA6<Alternate<OTYPE, 2>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PA7<Alternate<OTYPE, 2>> {}
-impl<OTYPE> super::TIM_CH2<crate::pac::TIM3> for crate::gpio::PA7<Alternate<OTYPE, 2>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PB0<Alternate<OTYPE, 2>> {}
-impl<OTYPE> super::TIM_CH3<crate::pac::TIM3> for crate::gpio::PB0<Alternate<OTYPE, 2>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PB1<Alternate<OTYPE, 2>> {}
-impl<OTYPE> super::TIM_CH4<crate::pac::TIM3> for crate::gpio::PB1<Alternate<OTYPE, 2>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PB4<Alternate<OTYPE, 2>> {}
-impl<OTYPE> super::TIM_CH1<crate::pac::TIM3> for crate::gpio::PB4<Alternate<OTYPE, 2>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PB5<Alternate<OTYPE, 2>> {}
-impl<OTYPE> super::TIM_CH2<crate::pac::TIM3> for crate::gpio::PB5<Alternate<OTYPE, 2>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PC6<Alternate<OTYPE, 2>> {}
-impl<OTYPE> super::TIM_CH1<crate::pac::TIM3> for crate::gpio::PC6<Alternate<OTYPE, 2>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PC7<Alternate<OTYPE, 2>> {}
-impl<OTYPE> super::TIM_CH2<crate::pac::TIM3> for crate::gpio::PC7<Alternate<OTYPE, 2>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PC8<Alternate<OTYPE, 2>> {}
-impl<OTYPE> super::TIM_CH3<crate::pac::TIM3> for crate::gpio::PC8<Alternate<OTYPE, 2>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PC9<Alternate<OTYPE, 2>> {}
-impl<OTYPE> super::TIM_CH4<crate::pac::TIM3> for crate::gpio::PC9<Alternate<OTYPE, 2>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PD2<Alternate<OTYPE, 2>> {}
-impl<OTYPE> super::TIM_ETR<crate::pac::TIM3> for crate::gpio::PD2<Alternate<OTYPE, 2>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PE2<Alternate<OTYPE, 2>> {}
-impl<OTYPE> super::TIM_ETR<crate::pac::TIM3> for crate::gpio::PE2<Alternate<OTYPE, 2>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PE3<Alternate<OTYPE, 2>> {}
-impl<OTYPE> super::TIM_CH1<crate::pac::TIM3> for crate::gpio::PE3<Alternate<OTYPE, 2>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PE4<Alternate<OTYPE, 2>> {}
-impl<OTYPE> super::TIM_CH2<crate::pac::TIM3> for crate::gpio::PE4<Alternate<OTYPE, 2>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PE5<Alternate<OTYPE, 2>> {}
-impl<OTYPE> super::TIM_CH3<crate::pac::TIM3> for crate::gpio::PE5<Alternate<OTYPE, 2>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PE6<Alternate<OTYPE, 2>> {}
-impl<OTYPE> super::TIM_CH4<crate::pac::TIM3> for crate::gpio::PE6<Alternate<OTYPE, 2>> {}
-
 // TIM6
+
+// TIM7
 
 // TSC
 
@@ -999,29 +859,6 @@ impl<OTYPE> super::TSC_G7_IO3<crate::pac::TSC> for crate::gpio::PE4<Alternate<OT
 
 impl<OTYPE> super::private::Sealed for crate::gpio::PE5<Alternate<OTYPE, 9>> {}
 impl<OTYPE> super::TSC_G7_IO4<crate::pac::TSC> for crate::gpio::PE5<Alternate<OTYPE, 9>> {}
-
-// UART4
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PA0<Alternate<OTYPE, 8>> {}
-impl<OTYPE> super::UART_TX<crate::pac::UART4> for crate::gpio::PA0<Alternate<OTYPE, 8>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PA1<Alternate<OTYPE, 8>> {}
-impl<OTYPE> super::UART_RX<crate::pac::UART4> for crate::gpio::PA1<Alternate<OTYPE, 8>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PA15<Alternate<OTYPE, 8>> {}
-impl<OTYPE> super::UART_DE<crate::pac::UART4> for crate::gpio::PA15<Alternate<OTYPE, 8>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PA15<Alternate<OTYPE, 8>> {}
-impl<OTYPE> super::UART_RTS<crate::pac::UART4> for crate::gpio::PA15<Alternate<OTYPE, 8>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PB7<Alternate<OTYPE, 8>> {}
-impl<OTYPE> super::UART_CTS<crate::pac::UART4> for crate::gpio::PB7<Alternate<OTYPE, 8>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PC10<Alternate<OTYPE, 8>> {}
-impl<OTYPE> super::UART_TX<crate::pac::UART4> for crate::gpio::PC10<Alternate<OTYPE, 8>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PC11<Alternate<OTYPE, 8>> {}
-impl<OTYPE> super::UART_RX<crate::pac::UART4> for crate::gpio::PC11<Alternate<OTYPE, 8>> {}
 
 // USART1
 
@@ -1178,20 +1015,6 @@ impl<OTYPE> super::USART_TX<crate::pac::USART3> for crate::gpio::PD8<Alternate<O
 
 impl<OTYPE> super::private::Sealed for crate::gpio::PD9<Alternate<OTYPE, 7>> {}
 impl<OTYPE> super::USART_RX<crate::pac::USART3> for crate::gpio::PD9<Alternate<OTYPE, 7>> {}
-
-// USB
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PA11<Alternate<OTYPE, 10>> {}
-impl<OTYPE> super::USB_DM<crate::pac::USB> for crate::gpio::PA11<Alternate<OTYPE, 10>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PA12<Alternate<OTYPE, 10>> {}
-impl<OTYPE> super::USB_DP<crate::pac::USB> for crate::gpio::PA12<Alternate<OTYPE, 10>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PA13<Alternate<OTYPE, 10>> {}
-impl<OTYPE> super::USB_NOE<crate::pac::USB> for crate::gpio::PA13<Alternate<OTYPE, 10>> {}
-
-impl<OTYPE> super::private::Sealed for crate::gpio::PC9<Alternate<OTYPE, 10>> {}
-impl<OTYPE> super::USB_NOE<crate::pac::USB> for crate::gpio::PC9<Alternate<OTYPE, 10>> {}
 
 // VREFINTCAL
 
