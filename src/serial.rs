@@ -50,6 +50,8 @@ pub enum Event {
     Rxne,
     /// New data can be sent
     Txe,
+    /// transmit has been completed
+    Txc,
     /// The line has gone idle
     Idle,
     /// Character match
@@ -384,6 +386,9 @@ macro_rules! hal {
                         Event::Txe => {
                             self.usart.cr1.modify(|_, w| w.txeie().set_bit())
                         },
+                        Event::Txc => {
+                            self.usart.cr1.modify(|_, w| w.tcie().set_bit())
+                        }
                         Event::Idle => {
                             self.usart.cr1.modify(|_, w| w.idleie().set_bit())
                         },
@@ -415,6 +420,9 @@ macro_rules! hal {
                         Event::Txe => {
                             self.usart.cr1.modify(|_, w| w.txeie().clear_bit())
                         },
+                        Event::Txc => {
+                            self.usart.cr1.modify(|_, w| w.tcie().clear_bit())
+                        }
                         Event::Idle => {
                             self.usart.cr1.modify(|_, w| w.idleie().clear_bit())
                         },
